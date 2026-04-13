@@ -15,7 +15,7 @@ public class WdHubStatusTests extends tests.TestBase {
                 .log().all()
                 .auth().basic("user1", "1234")
                 .when()
-                .get("https://selenoid.autotests.cloud/wd/hub/status")
+                .get("/wd/hub/status")
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -29,7 +29,7 @@ public class WdHubStatusTests extends tests.TestBase {
         given()
                 .log().uri()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .log().status()
                 .statusCode(200)
@@ -43,7 +43,7 @@ public class WdHubStatusTests extends tests.TestBase {
                 .log().uri()
                 .auth().basic("user1", "wrong_password") // Специально пишем неверный пароль
                 .when()
-                .get("https://selenoid.autotests.cloud/wd/hub/status")
+                .get("/wd/hub/status")
                 .then()
                 .log().all()
                 .statusCode(401);
@@ -53,7 +53,7 @@ public class WdHubStatusTests extends tests.TestBase {
     public void checkChromeIsAvailable() {
         given()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .statusCode(200)
                 .body("browsers.chrome", notNullValue());
@@ -63,7 +63,7 @@ public class WdHubStatusTests extends tests.TestBase {
     public void checkContentType() {
         given()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .statusCode(200)
                 .contentType(io.restassured.http.ContentType.JSON);
@@ -74,7 +74,7 @@ public class WdHubStatusTests extends tests.TestBase {
         given()
                 .log().uri()
                 .when()
-                .get("https://selenoid.autotests.cloud/wd/hub/status")
+                .get("/wd/hub/status")
                 .then()
                 .log().status()
                 .statusCode(401);
@@ -84,7 +84,7 @@ public class WdHubStatusTests extends tests.TestBase {
     public void checkResponseTime() {
         given()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .time(lessThan(2000L));
     }
