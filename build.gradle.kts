@@ -10,15 +10,19 @@ repositories {
 }
 
 dependencies {
-    // REST Assured
     testImplementation("io.rest-assured:rest-assured:5.4.0")
     testImplementation("io.rest-assured:json-schema-validator:5.4.0")
-
+    testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
 
-    // Hamcrest для проверок
+    testImplementation(platform("com.fasterxml.jackson:jackson-bom:2.17.2"))
+    testImplementation("com.fasterxml.jackson.core:jackson-databind")
+    testImplementation("com.fasterxml.jackson.core:jackson-core")
+    testImplementation("com.fasterxml.jackson.core:jackson-annotations")
+
     testImplementation("org.hamcrest:hamcrest:2.2")
+
 }
 
 tasks.withType<Test> {

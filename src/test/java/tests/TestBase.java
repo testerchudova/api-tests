@@ -1,11 +1,22 @@
 package tests;
 
+import api.ApiClient;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeAll;
+import models.login.LoginBodyModel;
+import org.junit.jupiter.api.BeforeEach;
 
 public class TestBase {
-    @BeforeAll
-    public static void setUp() {
-        RestAssured.baseURI = "https://selenoid.autotests.cloud";
+
+    protected static final ApiClient api = new ApiClient();
+
+    protected String userToken;
+
+    @BeforeEach
+    void setUp() {
+        RestAssured.baseURI = "https://book-club.qa.guru";
+
+        userToken = api.auth.loginAndGetAccessToken(
+                new LoginBodyModel("user8", "user8")
+        );
     }
 }
