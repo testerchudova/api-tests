@@ -1,20 +1,33 @@
 package specs;
 
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+
 import static io.restassured.filter.log.LogDetail.ALL;
+import static org.hamcrest.Matchers.notNullValue;
+import static specs.BaseSpec.baseRequestSpec;
 
 public class RegistrationSpec {
 
-    // Успешная регистрация (201 Created или 200 OK — зависит от твоего API)
-    public static ResponseSpecification registrationSuccessSpec = new ResponseSpecBuilder()
-            .expectStatusCode(201)
+    public static final RequestSpecification registrationRequestSpec = baseRequestSpec;
+
+    public static final ResponseSpecification successfulRegistrationResponseSpec = new ResponseSpecBuilder()
             .log(ALL)
+            .expectStatusCode(201)
+            .expectBody("id", notNullValue())
+            .expectBody("username", notNullValue())
+            .expectBody("remoteAddr", notNullValue())
             .build();
 
-    // Ошибка: такой пользователь уже есть (400 или 409)
-    public static ResponseSpecification registrationErrorSpec = new ResponseSpecBuilder()
-            .expectStatusCode(400)
+    public static final ResponseSpecification existingUserRegistrationResponseSpec = new ResponseSpecBuilder()
             .log(ALL)
+            .expectStatusCode(400)
+            .expectBody("username", notNullValue())
+            .build();
+
+    public static final ResponseSpecification badRequestRegistrationResponseSpec = new ResponseSpecBuilder()
+            .log(ALL)
+            .expectStatusCode(400)
             .build();
 }

@@ -3,14 +3,26 @@ package tests;
 import models.users.UpdateUserRequest;
 import models.users.UpdateUserResponse;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 import static specs.CommonSpec.unauthorizedResponseSpec;
 import static specs.UpdateUserSpec.badRequestUpdateUserResponseSpec;
+import models.login.LoginBodyModel;
+import org.junit.jupiter.api.BeforeEach;
+
+import static data.TestData.LOGIN_PASSWORD;
+import static data.TestData.LOGIN_USERNAME;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UpdateUserTests extends TestBase {
 
+    private String userToken;
+
+    @BeforeEach
+    void authorize() {
+        userToken = api.auth.loginAndGetAccessToken(
+                new LoginBodyModel(LOGIN_USERNAME, LOGIN_PASSWORD)
+        );
+    }
     @Test
     void successfulPutUpdateTest() {
         UpdateUserResponse currentUser = api.users.getCurrentUser(userToken);

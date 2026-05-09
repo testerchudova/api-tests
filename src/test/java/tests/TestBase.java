@@ -2,21 +2,15 @@ package tests;
 
 import api.ApiClient;
 import io.restassured.RestAssured;
-import models.login.LoginBodyModel;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 
 public class TestBase {
 
     protected static final ApiClient api = new ApiClient();
 
-    protected String userToken;
-
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUpBaseApi() {
         RestAssured.baseURI = "https://book-club.qa.guru";
-
-        userToken = api.auth.loginAndGetAccessToken(
-                new LoginBodyModel("user8", "user8")
-        );
+        RestAssured.basePath = "/api/v1";
     }
 }

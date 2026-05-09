@@ -14,4 +14,15 @@ public class LoginSpec {
             .expectBody("access", notNullValue())
             .expectBody("refresh", notNullValue())
             .build();
+
+    public static final ResponseSpecification wrongCredentialsLoginResponseSpec = new ResponseSpecBuilder()
+            .log(ALL)
+            .expectStatusCode(401)
+            .expectBody("detail", notNullValue())
+            .build();
+
+    public static final ResponseSpecification badRequestLoginResponseSpec = new ResponseSpecBuilder()
+            .log(ALL)
+            .expectStatusCode(400)
+            .build();
 }

@@ -33,7 +33,7 @@ public class WdHubStatusTests extends tests.TestBase {
                 .then()
                 .log().status()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("status_response_schema.json"));
+                .body(matchesJsonSchemaInClasspath("schemas/status_response_schema.json"));
     }
 
 
