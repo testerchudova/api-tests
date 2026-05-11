@@ -1,7 +1,8 @@
 plugins {
-    java
+    id("java")
+    id("io.qameta.allure") version "2.11.2"
 }
-
+val allureVersion = "2.25.0"
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
@@ -23,8 +24,24 @@ dependencies {
 
     testImplementation("org.hamcrest:hamcrest:2.2")
 
-}
+    testImplementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
+    testImplementation("io.qameta.allure:allure-junit5")
+    testImplementation("io.qameta.allure:allure-rest-assured")
 
+}
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
 tasks.withType<Test> {
     useJUnitPlatform()
     systemProperties(System.getProperties().mapKeys { it.key.toString() })
