@@ -8,6 +8,7 @@ import models.reviews.ReviewModel;
 import models.reviews.ReviewRequestModel;
 import models.reviews.ReviewsListResponseModel;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -21,6 +22,7 @@ import static specs.ReviewsSpec.forbiddenReviewResponseSpec;
 import static specs.ReviewsSpec.notFoundReviewResponseSpec;
 import static specs.ReviewsSpec.unauthorizedReviewResponseSpec;
 
+@Tag("reviews")
 public class ReviewsTests extends TestBase {
 
     private static String userToken;

@@ -29,6 +29,19 @@ dependencies {
     testImplementation("io.qameta.allure:allure-rest-assured")
 
 }
+tasks.withType<Test> {
+    useJUnitPlatform {
+        val includedTags = System.getProperty("includeTags")
+        if (!includedTags.isNullOrBlank()) {
+            includeTags(*includedTags.split(",").map { it.trim() }.toTypedArray())
+        }
+
+        val excludedTags = System.getProperty("excludeTags")
+        if (!excludedTags.isNullOrBlank()) {
+            excludeTags(*excludedTags.split(",").map { it.trim() }.toTypedArray())
+        }
+    }
+}
 allure {
     report {
         version.set(allureVersion)
